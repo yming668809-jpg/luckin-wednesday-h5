@@ -1,0 +1,992 @@
+/* ============================================================
+   瑞幸「幸运星期四 今天有惊喜」H5 - 样式
+   移动端优先，适配 375px-430px；使用 clamp/vw 响应式尺寸
+   ============================================================ */
+
+:root {
+  --blue-deep: #1d3bb5;
+  --blue-main: #2643b8;
+  --blue-mid: #4a6ee0;
+  --blue-light: #9cc4ff;
+  --blue-pale: #d9e9ff;
+  --bg-top: #a9d4ff;
+  --bg-mid: #cfe8ff;
+  --bg-bottom: #e9f5ff;
+  --red-1: #ff5a3c;
+  --red-2: #f4231f;
+  --yellow: #ffd83d;
+  --text-dark: #12309b;
+  --cell-border: #cfe0ff;
+  --radius-cell: 16px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background: #bfe0ff;
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+body.no-scroll { overflow: hidden; }
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+button:focus-visible, a:focus-visible {
+  outline: 3px solid #ff8f3c;
+  outline-offset: 2px;
+}
+button:active { transform: scale(.96); }
+
+/* ---------- 页面容器：移动端居中，最大 480px ---------- */
+.page {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding-bottom: calc(24px + var(--safe-bottom));
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 42%, var(--bg-bottom) 78%, #f4fbff 100%);
+}
+
+/* 放射光线背景 */
+.rays {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 62%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,.5), rgba(255,255,255,0) 46%),
+    repeating-conic-gradient(from -90deg at 50% 6%, rgba(255,255,255,.32) 0deg 8deg, rgba(255,255,255,0) 8deg 20deg);
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+
+/* ================= 顶部活动区域 ================= */
+.hero {
+  position: relative;
+  padding: calc(10px + var(--safe-top)) 12px 0;
+}
+
+/* 店铺位置入口 */
+.store-entry {
+  position: relative;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffffff, #f2f8ff);
+  box-shadow: 0 2px 8px rgba(29,59,181,.18), inset 0 0 0 1.5px rgba(255,255,255,.9);
+  font-size: 14px;
+  font-weight: 600;
+  color: #16234d;
+}
+.store-entry .store-logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(38,67,184,.15);
+}
+.store-entry .ico-arrow { width: 12px; height: 12px; color: #7a88b8; }
+
+/* 滚动中奖播报 */
+.marquee {
+  position: relative;
+  z-index: 2;
+  height: 24px;
+  margin-top: 8px;
+  overflow: hidden;
+  width: 78%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+.marquee-2 { margin-top: 4px; width: 88%; }
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  white-space: nowrap;
+  animation: marquee 16s linear infinite;
+  will-change: transform;
+}
+.marquee-track.reverse { animation-direction: reverse; animation-duration: 19s; }
+.marquee-track span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2a4dbf;
+  background: rgba(255,255,255,.72);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* 活动标题 */
+.hero-title-wrap {
+  position: relative;
+  z-index: 3;
+  margin-top: 6px;
+  min-height: 112px;
+}
+/* 白色鹿角 Logo 水印（透明底素材，衬托标题；降透明度并上移，避免压住「惊喜」） */
+.hero-watermark {
+  position: absolute;
+  right: clamp(44px, 15vw, 78px);
+  top: -30px;
+  width: clamp(110px, 30vw, 140px);
+  opacity: .16;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(29,59,181,.15));
+}
+.hero-title {
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  word-break: keep-all;
+}
+/* 标题主字：蓝色渐变填充 + 细白描边（避免笔画粘连成重影） */
+.hero-title .line1,
+.hero-title .line2 {
+  display: block;
+  white-space: nowrap;
+  font-size: clamp(38px, 11.5vw, 52px);
+  background: linear-gradient(180deg, #5a86ff 0%, #2c50d8 55%, #1d3bb5 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #fff;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 0 #fff) drop-shadow(0 6px 12px rgba(29,59,181,.3));
+}
+/* 「惊喜」促销胶囊标签：暖色渐变填充 + 白边 + 柔光脉冲，作为视觉焦点（与品牌蓝主字形成对比又不突兀） */
+.hero-title .title-pill {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 6px;
+  padding: 1px 15px 3px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd34e 0%, #ff8a1e 52%, #f4231f 100%);
+  border: 2px solid #fff;
+  box-shadow: 0 5px 14px rgba(244,35,31,.4), 0 0 0 3px rgba(255,255,255,.35);
+  transform: scale(1.06) rotate(-2.5deg);
+  animation: pillGlow 2.4s ease-in-out infinite;
+}
+.hero-title .title-pill .spark {
+  font-size: .6em;
+  margin-right: 2px;
+  transform: translateY(-1px);
+  filter: drop-shadow(0 1px 1px rgba(150,0,0,.45));
+}
+.hero-title .title-pill .highlight {
+  font-style: italic;
+  margin-left: 0;
+  color: #fff;
+  background: none;
+  -webkit-background-clip: initial;
+          background-clip: initial;
+  -webkit-text-stroke: 0;
+  paint-order: normal;
+  text-shadow: 0 1px 2px rgba(140,0,0,.45);
+  filter: none;
+}
+@keyframes pillGlow {
+  0%, 100% { box-shadow: 0 5px 14px rgba(244,35,31,.4), 0 0 0 3px rgba(255,255,255,.35); }
+  50%      { box-shadow: 0 6px 20px rgba(244,35,31,.55), 0 0 0 5px rgba(255,255,255,.5); }
+}
+
+/* 吉祥物（透明抠图 PNG） */
+.hero-mascot {
+  position: absolute;
+  right: -6px;
+  top: -18px;
+  width: clamp(104px, 29vw, 132px);
+  pointer-events: none;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(29,59,181,.22));
+  animation: mascotSway 3.2s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+@keyframes mascotSway {
+  0%, 100% { rotate: 0deg; }
+  50% { rotate: 3deg; }
+}
+
+/* 规则按钮 */
+.rule-btn {
+  position: absolute;
+  z-index: 6;
+  top: calc(86px + var(--safe-top));
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(135deg, #3a6cf0, var(--blue-deep));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(29,59,181,.35);
+}
+.rule-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 900;
+}
+
+/* 右侧悬浮 我的奖品 */
+.my-prize-tab {
+  position: fixed;
+  z-index: 40;
+  right: 0;
+  top: 42%;
+  writing-mode: vertical-lr;
+  letter-spacing: 3px;
+  padding: 14px 7px;
+  border-radius: 12px 0 0 12px;
+  background: linear-gradient(180deg, #58d0ff, #2f9df0);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: -2px 3px 10px rgba(29,90,200,.35);
+}
+/* 限制在页面宽度内（桌面宽屏时贴页面右缘） */
+@media (min-width: 481px) {
+  .my-prize-tab { right: calc(50vw - 240px); }
+}
+
+/* ================= 抽奖机与九宫格 ================= */
+.machine-wrap {
+  position: relative;
+  z-index: 4;
+  margin: 10px 18px 0;
+}
+
+/* 抽奖机两侧把手 */
+.machine-handle {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 72px;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #7fb2ff, #3a6cf0);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,.6), 0 3px 6px rgba(29,59,181,.3);
+}
+.machine-handle.left { left: -12px; }
+.machine-handle.right { right: -12px; }
+
+/* 透明蓝色玻璃机身 */
+.machine {
+  position: relative;
+  border-radius: 26px;
+  padding: 13px;
+  background: linear-gradient(160deg, rgba(168,206,255,.88) 0%, rgba(104,148,244,.75) 45%, rgba(76,116,230,.82) 100%);
+  border: 2px solid rgba(255,255,255,.8);
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,.9),
+    inset 0 -6px 14px rgba(29,59,181,.25),
+    0 12px 28px rgba(29,59,181,.3);
+  overflow: hidden;
+}
+
+/* 机器顶部透明亚克力盖 */
+.machine-lid {
+  position: relative;
+  z-index: 2;
+  height: 14px;
+  margin: -3px 2px 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(196,222,255,.6) 60%, rgba(160,198,255,.5) 100%);
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.95),
+    inset 0 -2px 4px rgba(29,59,181,.12),
+    0 4px 8px rgba(29,59,181,.2);
+}
+.machine-gloss {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 30%),
+    linear-gradient(0deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 26%);
+}
+.machine-gloss::after {
+  content: "";
+  position: absolute;
+  left: 8%; right: 8%; top: 6px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.55);
+  filter: blur(1px);
+}
+
+/* 九宫格 */
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-cell);
+  background: linear-gradient(180deg, #ffffff, #f3f8ff);
+  border: 2px solid var(--cell-border);
+  box-shadow: inset 0 -3px 6px rgba(120,155,230,.08), 0 2px 6px rgba(29,59,181,.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.cell img {
+  width: 90%;
+  height: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(29,59,181,.14));
+}
+/* 蓝色缎带标签（免单券/兑换券），压在奖品图底部，对应官方样式 */
+.cell .cell-tag {
+  z-index: 1;
+  margin-top: -13px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(180deg, #5a7ef0 0%, var(--blue-main) 60%, #1d3bb5 100%);
+  padding: 2.5px 12px;
+  clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(15,25,80,.45);
+  box-shadow: 0 2px 4px rgba(29,59,181,.3);
+}
+/* 高亮轮播态 */
+.cell.is-active {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255,216,61,.85), 0 0 18px rgba(255,200,40,.75);
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+/* 神秘大奖占位格（不提前泄露奖品图） */
+.cell .cell-mystery {
+  font-size: clamp(40px, 12vw, 52px);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  color: var(--red-2);
+  -webkit-text-stroke: 2px #fff;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 2px 0 #fff) drop-shadow(0 4px 8px rgba(244,35,31,.35));
+  animation: mysteryPulse 1.5s ease-in-out infinite;
+}
+@keyframes mysteryPulse {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50%      { transform: scale(1.14); opacity: 1; }
+}
+
+/* 中心抽奖按钮 */
+.center-btn {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 32%, #ff7a5c 0%, var(--red-1) 42%, var(--red-2) 100%);
+  border: 3px solid #ffe08a;
+  box-shadow: 0 4px 0 #c41612, 0 8px 16px rgba(244,35,31,.4);
+  justify-content: center;
+  gap: 4px;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+/* 按钮高光扫过 */
+.center-btn::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -80%;
+  width: 46%;
+  height: 160%;
+  background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0));
+  transform: rotate(12deg);
+  animation: btnShine 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btnShine {
+  0%, 62% { left: -80%; }
+  86%, 100% { left: 150%; }
+}
+.center-btn .center-main {
+  font-size: clamp(18px, 5.6vw, 24px);
+  font-weight: 900;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(120,0,0,.45);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  line-height: 1.05;
+}
+.center-btn .center-count {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #ffe9c9;
+  transform: scale(.92);
+  white-space: nowrap;
+}
+/* 次数用尽态：主文案缩小到单行，避免「今日次数已用完」折成多行拆断词 */
+.center-btn.is-empty .center-main {
+  font-size: clamp(12px, 3.4vw, 14px);
+  letter-spacing: 0;
+}
+.center-btn.is-empty .center-count {
+  font-size: 9px;
+}
+.center-btn.is-drawing { animation: shake .3s linear infinite; }
+.center-btn.is-empty { filter: grayscale(.55); animation: none; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 0 #c41612, 0 8px 16px rgba(244,35,31,.4); }
+  50% { box-shadow: 0 4px 0 #c41612, 0 10px 26px rgba(244,35,31,.65); }
+}
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-1.6deg) scale(.98); }
+  75% { transform: rotate(1.6deg) scale(.98); }
+}
+
+/* ================= 本期奖品池 ================= */
+.pool { margin: 18px 14px 0; }
+.pool-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.pool-title span {
+  position: relative;
+  font-size: 17px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--blue-deep);
+  background: linear-gradient(180deg, #eaf4ff, #cfe4ff);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  padding: 6px 26px;
+  box-shadow: 0 3px 8px rgba(29,59,181,.18);
+}
+
+.pool-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 2px 10px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.pool-scroll::-webkit-scrollbar { display: none; }
+
+.pool-card {
+  position: relative;
+  flex: 0 0 31%;
+  min-width: 108px;
+  scroll-snap-align: start;
+  background: linear-gradient(180deg, #ffffff, #eef6ff);
+  border: 2px solid #fff;
+  border-radius: 14px;
+  padding: 20px 8px 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(29,59,181,.14);
+}
+.pool-card .badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--blue-deep);
+  background: linear-gradient(180deg, #dceaff, #b7d4ff);
+  border-radius: 999px;
+  padding: 2px 9px;
+  box-shadow: 0 2px 4px rgba(29,59,181,.2);
+}
+/* 奖品池卡片：压在图片底部的蓝色缎带 */
+.pool-card .ribbon {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(180deg, #5a7ef0 0%, var(--blue-main) 60%, #1d3bb5 100%);
+  padding: 2.5px 12px;
+  clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(15,25,80,.45);
+  box-shadow: 0 2px 4px rgba(29,59,181,.3);
+}
+.pool-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  background: radial-gradient(circle at 50% 42%, #e6f1ff 0%, #d4e6ff 100%);
+  border-radius: 50%;
+  padding: 7px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.9);
+}
+.pool-card .p-name {
+  margin-top: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #16234d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pool-card .p-status {
+  margin-top: 3px;
+  font-size: 10.5px;
+  color: #97a5cc;
+}
+.pool-card.soldout img { filter: grayscale(.85) opacity(.6); }
+.pool-card.soldout .p-status { color: #a8b4d8; }
+
+/* ================= 超值限时购 ================= */
+.flash-sale { margin: 14px 14px 0; }
+.fs-title {
+  text-align: center;
+  font-size: clamp(24px, 7.4vw, 32px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 1px;
+  margin: 8px 0 12px;
+  text-shadow: 0 3px 0 rgba(255,255,255,.9), 0 5px 12px rgba(29,59,181,.25);
+}
+.fs-title span { color: var(--blue-deep); -webkit-text-stroke: 1.5px #fff; paint-order: stroke fill; }
+.fs-title .fs-mid { color: var(--red-2); -webkit-text-stroke: 1.5px #fff; }
+.fs-title .fs-hot { color: var(--red-2); -webkit-text-stroke: 1.5px #fff; }
+
+.fs-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: none;
+}
+.fs-scroll::-webkit-scrollbar { display: none; }
+
+.fs-card {
+  flex: 0 0 42%;
+  min-width: 150px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(29,59,181,.13);
+}
+.fs-card img {
+  width: 92px;
+  height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(29,59,181,.16));
+}
+.fs-card .f-name { font-size: 14px; font-weight: 800; color: #16234d; }
+.fs-card .f-desc { margin-top: 2px; font-size: 10.5px; color: #8d9ac2; }
+.fs-card .f-price-row {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.fs-card .f-price {
+  font-size: 18px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--red-2);
+}
+.fs-card .f-price::before { content: "¥"; font-size: 11px; }
+.fs-card .f-origin { font-size: 10.5px; color: #b3bdda; text-decoration: line-through; }
+.fs-card .f-buy {
+  margin-top: 8px;
+  width: 100%;
+  padding: 7px 0;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(90deg, #ff7a3c, var(--red-2));
+  box-shadow: 0 3px 0 #c41612;
+}
+.fs-card .f-buy:active { transform: translateY(2px) scale(.98); box-shadow: 0 1px 0 #c41612; }
+
+/* ================= 页脚 ================= */
+.footer {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 11px;
+  color: #7d8fbd;
+  line-height: 1.7;
+}
+.footer-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  opacity: .85;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+/* ================= 弹窗通用 ================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal[hidden] { display: none; }
+.modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 20, 60, .58);
+  backdrop-filter: blur(2px);
+}
+
+/* ---------- 中奖弹窗 ---------- */
+.win-box {
+  position: relative;
+  z-index: 1;
+  width: min(84vw, 340px);
+  animation: popIn .32s cubic-bezier(.2, 1.4, .4, 1);
+}
+@keyframes popIn {
+  from { transform: scale(.55); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.win-visual {
+  position: relative;
+  height: 132px;
+  margin-bottom: -56px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+/* 中奖弹窗顶部视觉：吉祥物探头 + 粉色礼物盒 */
+.win-mascot {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  width: 122px;
+  transform: translateX(-95%);
+  z-index: 3;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(120,20,80,.28));
+  animation: prizeFloat 2.2s ease-in-out infinite;
+}
+/* CSS 绘制的粉色礼物盒 */
+.win-gift {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 128px;
+  height: 98px;
+  transform: translateX(-12%);
+  z-index: 2;
+  filter: drop-shadow(0 8px 12px rgba(150,30,90,.32));
+  animation: prizeFloat 2.2s ease-in-out infinite;
+}
+.win-gift .gift-body {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
+  height: 58px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffa8cb 0%, #ff7fb2 100%);
+}
+.win-gift .gift-body::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ffd9e8, #fff3f8 50%, #ffd9e8);
+  border-radius: 3px;
+}
+.win-gift .gift-lid {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 22px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffb9d4 0%, #ff8fbd 100%);
+  box-shadow: 0 3px 0 rgba(210,70,130,.35);
+}
+.win-gift .gift-lid::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 12px;
+  background: linear-gradient(90deg, #ffd9e8, #fff3f8 50%, #ffd9e8);
+  border-radius: 3px;
+}
+.win-gift .gift-bow {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: 52px;
+  height: 24px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.win-gift .gift-bow::before,
+.win-gift .gift-bow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(180deg, #ffb9d4, #ff8fbd);
+  border: 2.5px solid #fff;
+  border-radius: 60% 60% 60% 60% / 70% 70% 30% 30%;
+}
+.win-gift .gift-bow::before { left: 0; transform: rotate(-22deg); }
+.win-gift .gift-bow::after { right: 0; transform: rotate(22deg); }
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: .95;
+  animation: confettiFloat 2.6s ease-in-out infinite;
+}
+.confetti.c1 { left: 6%;  top: 20%; background: #ffd83d; transform: rotate(20deg); }
+.confetti.c2 { right: 8%; top: 12%; background: #58d0ff; border-radius: 50%; animation-delay: .3s; }
+.confetti.c3 { left: 16%; top: 62%; background: #ff8fb3; transform: rotate(-24deg); animation-delay: .6s; }
+.confetti.c4 { right: 14%; top: 58%; background: #7ee2a0; transform: rotate(36deg); animation-delay: .9s; }
+.confetti.c5 { left: 40%; top: 6%;  background: #fff; border-radius: 50%; animation-delay: .15s; }
+.confetti.c6 { right: 34%; top: 4%; background: #ffb35c; transform: rotate(14deg); animation-delay: .75s; }
+.confetti.c7 { left: 26%; top: 34%; background: #b18cff; border-radius: 50%; width: 7px; height: 7px; animation-delay: .45s; }
+.confetti.c8 { right: 24%; top: 30%; background: #ffd83d; width: 7px; height: 7px; transform: rotate(40deg); animation-delay: 1.05s; }
+@keyframes confettiFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.win-card {
+  position: relative;
+  border-radius: 22px;
+  padding: 66px 20px 22px;
+  text-align: center;
+  background: linear-gradient(180deg, #ffe9f2 0%, #fdf6fb 34%, #ffffff 100%);
+  box-shadow: 0 14px 34px rgba(10,20,60,.35);
+}
+.win-title {
+  font-size: 26px;
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(180deg, #ff9a3c 0%, #ff5f14 60%, #f43b1f 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 #fff) drop-shadow(0 4px 8px rgba(255,95,20,.3));
+}
+.win-prize-img {
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  margin: 8px auto 0;
+  display: block;
+  animation: prizeFloat 2.2s ease-in-out infinite;
+}
+@keyframes prizeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.win-prize-name {
+  margin-top: 6px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #16234d;
+}
+.win-tip { margin-top: 6px; font-size: 12px; color: #97a5cc; }
+.win-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  background: linear-gradient(90deg, #ff7a3c, var(--red-2), #ff5a3c);
+  box-shadow: 0 4px 0 #c41612, 0 8px 18px rgba(244,35,31,.35);
+}
+.win-btn:active { transform: translateY(3px) scale(.98); box-shadow: 0 1px 0 #c41612; }
+
+/* 关闭按钮（弹窗外底部） */
+.modal-close {
+  position: absolute;
+  left: 50%;
+  bottom: -52px;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.9);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  background: rgba(255,255,255,.16);
+}
+.modal-close:active { transform: translateX(-50%) scale(.9); }
+
+/* ---------- 面板弹窗（我的奖品 / 规则） ---------- */
+.panel-box {
+  position: relative;
+  z-index: 1;
+  width: min(86vw, 350px);
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eaf4ff, #ffffff 30%);
+  padding: 20px 16px calc(16px + var(--safe-bottom));
+  animation: popIn .28s cubic-bezier(.2, 1.4, .4, 1);
+}
+.panel-title {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--blue-deep);
+  padding-bottom: 12px;
+}
+.panel-box .modal-close {
+  bottom: auto;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  transform: none;
+  width: 28px;
+  height: 28px;
+  border: none;
+  color: #97a5cc;
+  font-size: 14px;
+  background: #eef3fd;
+}
+.panel-box .modal-close:active { transform: scale(.9); }
+
+.prize-list {
+  list-style: none;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prize-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed #d8e4fa;
+}
+.prize-list img {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  background: #f2f7ff;
+  border-radius: 10px;
+  padding: 4px;
+}
+.prize-list .pl-name { font-size: 13.5px; font-weight: 700; color: #16234d; }
+.prize-list .pl-time { margin-top: 2px; font-size: 11px; color: #97a5cc; }
+.prize-list .empty {
+  justify-content: center;
+  padding: 34px 0;
+  color: #97a5cc;
+  font-size: 13.5px;
+  border-bottom: none;
+}
+
+.rule-list {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #3a4a80;
+}
+.rule-list p { margin-bottom: 8px; }
+.rule-list p:first-child {
+  color: #b06000;
+  background: #fff6e4;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+/* ================= 轻提示 ================= */
+.toast {
+  position: fixed;
+  z-index: 200;
+  left: 50%;
+  bottom: calc(15% + var(--safe-bottom));
+  transform: translateX(-50%);
+  max-width: 78vw;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(17, 28, 70, .88);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  animation: toastIn .25s ease;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ---------- 窄屏微调 ---------- */
+@media (max-width: 359px) {
+  .pool-card { flex-basis: 44%; min-width: 96px; }
+  .marquee { width: 88%; }
+}
