@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150">
+  <!-- 0.01元杯品盲盒（小咖啡串盒装） -->
+  <g transform="rotate(-4 60 80)">
+    <g transform="translate(44,46)">
+      <rect x="-10" y="-16" width="20" height="7" rx="2.5" fill="#ffffff" stroke="#2643b8" stroke-width="2"/>
+      <path d="M-9 -9 L9 -9 L7 18 Q6.5 22 3 22 L-3 22 Q-6.5 22 -7 18 Z" fill="#2643b8"/>
+      <circle cx="0" cy="4" r="5" fill="#ffffff" opacity=".9"/>
+    </g>
+    <g transform="translate(76,50)">
+      <rect x="-10" y="-16" width="20" height="7" rx="2.5" fill="#ffffff" stroke="#2643b8" stroke-width="2"/>
+      <path d="M-9 -9 L9 -9 L7 18 Q6.5 22 3 22 L-3 22 Q-6.5 22 -7 18 Z" fill="#2643b8"/>
+      <circle cx="0" cy="4" r="5" fill="#ffffff" opacity=".9"/>
+    </g>
+    <path d="M20 84 Q18 74 30 72 L90 72 Q102 74 100 84 L96 112 Q94 124 80 125 L40 125 Q26 124 24 112 Z" fill="#2f55d4"/>
+    <path d="M20 84 Q18 74 30 72 L90 72 Q102 74 100 84 L99 90 L21 90 Z" fill="#4a6ee0"/>
+    <text x="60" y="108" text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="900" fill="#ffffff">盲盒</text>
+    <text x="60" y="119" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#bcd0ff" letter-spacing="1">luckin coffee</text>
+  </g>
+</svg>
