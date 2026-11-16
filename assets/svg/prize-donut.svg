@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150">
+  <!-- 巧克力甜甜圈 -->
+  <circle cx="60" cy="70" r="50" fill="#8a5a2b"/>
+  <path d="M18 62 Q14 44 32 32 Q48 22 66 24 Q88 26 98 42 Q108 56 102 74 Q98 88 88 94 Q92 84 86 82 Q84 92 74 96 Q76 88 68 88 Q66 98 54 100 Q58 92 50 90 Q44 98 34 94 Q40 88 34 84 Q24 86 20 76 Q16 70 18 62 Z" fill="#4a2a10"/>
+  <circle cx="60" cy="70" r="17" fill="#eef6ff" stroke="#8a5a2b" stroke-width="4"/>
+  <g stroke-linecap="round" stroke-width="5">
+    <line x1="40" y1="44" x2="46" y2="48" stroke="#ffd83d"/>
+    <line x1="72" y1="38" x2="77" y2="43" stroke="#ffffff"/>
+    <line x1="90" y1="60" x2="96" y2="63" stroke="#7fb2ff"/>
+    <line x1="30" y1="74" x2="36" y2="77" stroke="#ff8f8f"/>
+    <line x1="58" y1="40" x2="63" y2="45" stroke="#7fb2ff"/>
+    <line x1="80" y1="80" x2="85" y2="76" stroke="#ffd83d"/>
+    <line x1="42" y1="92" x2="47" y2="88" stroke="#ffffff"/>
+  </g>
+</svg>
