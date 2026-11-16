@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>幸运星期四 今天有惊喜 - 演示</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page" id="page">
+    <div class="rays" aria-hidden="true"></div>
+
+    <!-- ===== 顶部活动区域 ===== -->
+    <header class="hero">
+      <!-- 店铺位置入口 -->
+      <button class="store-entry" id="storeEntry" type="button" aria-label="切换门店">
+        <img class="store-logo" src="assets/img/logo-square.webp" alt="" aria-hidden="true" />
+        <span class="store-name" id="storeName">合肥贡街店</span>
+        <svg class="ico-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- 滚动中奖播报（两行） -->
+      <div class="marquee marquee-1" aria-hidden="true"><div class="marquee-track" id="marqueeTrack1"></div></div>
+      <div class="marquee marquee-2" aria-hidden="true"><div class="marquee-track reverse" id="marqueeTrack2"></div></div>
+
+      <!-- 活动标题 -->
+      <div class="hero-title-wrap">
+        <!-- 白色鹿角 Logo 水印（透明底素材） -->
+        <img class="hero-watermark" src="assets/img/deer-logo-mono.webp" alt="" aria-hidden="true" />
+        <h1 class="hero-title">
+          <span class="line1" id="titleLine1">幸运星期三</span>
+          <span class="line2"><span id="titleLine2">今天有</span><span class="title-pill"><span class="spark">✨</span><em class="highlight" id="titleHighlight">惊喜</em></span></span>
+        </h1>
+        <!-- 吉祥物（透明抠图 PNG：assets/img/mascot-cut.png） -->
+        <img class="hero-mascot" src="assets/img/mascot-cut.png" alt="瑞幸吉祥物" />
+      </div>
+
+      <!-- 规则入口 -->
+      <button class="rule-btn" id="ruleBtn" type="button" aria-haspopup="dialog">
+        <span class="rule-ico" aria-hidden="true">i</span>规则
+      </button>
+
+      <!-- 右侧悬浮：我的奖品 -->
+      <button class="my-prize-tab" id="myPrizeTab" type="button" aria-haspopup="dialog">我的奖品</button>
+    </header>
+
+    <!-- ===== 透明蓝色抽奖机 + 九宫格 ===== -->
+    <main class="machine-wrap">
+      <div class="machine-handle left" aria-hidden="true"></div>
+      <div class="machine-handle right" aria-hidden="true"></div>
+      <section class="machine" aria-label="抽奖机">
+        <!-- 透明亚克力顶盖（对应截图机器顶部） -->
+        <div class="machine-lid" aria-hidden="true"></div>
+        <div class="machine-gloss" aria-hidden="true"></div>
+        <div class="grid" id="grid" role="grid" aria-label="九宫格奖品">
+          <!-- 奖品格由 JS 渲染；中心为抽奖按钮 -->
+          <button class="cell center-btn" id="drawBtn" type="button">
+            <span class="center-main" id="drawBtnMain">抽免单</span>
+            <span class="center-count" id="drawBtnCount">剩余抽奖次数 1 次</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== 本期奖品池 ===== -->
+    <section class="pool" aria-label="本期奖品池">
+      <div class="pool-title"><span>本期奖品池</span></div>
+      <div class="pool-scroll" id="poolScroll" role="list">
+        <!-- 卡片由 JS 渲染 -->
+      </div>
+    </section>
+
+    <!-- ===== 超值限时购 ===== -->
+    <section class="flash-sale" aria-label="超值限时购">
+      <h2 class="fs-title">
+        <span id="fsTitle1">幸运星期三</span>
+        <span class="fs-mid" id="fsTitle2">超值</span><span class="fs-hot" id="fsTitle3">限时购</span>
+      </h2>
+      <div class="fs-scroll" id="fsScroll" role="list">
+        <!-- 商品卡片由 JS 渲染 -->
+      </div>
+    </section>
+
+    <footer class="footer">
+      <img class="footer-logo" src="assets/img/logo-square.webp" alt="" aria-hidden="true" />
+      <p>本页面为前端技术演示 Demo，非瑞幸咖啡官方页面</p>
+      <p>页面内奖品、次数、价格均为演示数据</p>
+    </footer>
+  </div>
+
+  <!-- ===== 中奖弹窗 ===== -->
+  <div class="modal" id="winModal" role="dialog" aria-modal="true" aria-labelledby="winTitle" hidden>
+    <div class="modal-mask" data-close></div>
+    <div class="win-box">
+      <div class="win-visual" aria-hidden="true">
+        <span class="confetti c1"></span><span class="confetti c2"></span><span class="confetti c3"></span>
+        <span class="confetti c4"></span><span class="confetti c5"></span><span class="confetti c6"></span>
+        <span class="confetti c7"></span><span class="confetti c8"></span>
+        <!-- 吉祥物探头 + 粉色礼物盒（对应官方中奖弹窗视觉） -->
+        <img class="win-mascot" src="assets/img/mascot-head.png" alt="" />
+        <div class="win-gift">
+          <span class="gift-bow"></span>
+          <span class="gift-lid"></span>
+          <span class="gift-body"></span>
+        </div>
+      </div>
+      <div class="win-card">
+        <h2 class="win-title" id="winTitle">恭喜你中奖了！</h2>
+        <img class="win-prize-img" id="winPrizeImg" src="" alt="奖品图片" />
+        <p class="win-prize-name" id="winPrizeName">7.7折券—指定自提饮品</p>
+        <p class="win-tip" id="winTip">奖励已发放至「我的奖品」</p>
+        <button class="win-btn" id="goDrinkBtn" type="button">去喝一杯</button>
+      </div>
+      <button class="modal-close" id="winClose" type="button" aria-label="关闭弹窗">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== 我的奖品弹窗 ===== -->
+  <div class="modal" id="prizeModal" role="dialog" aria-modal="true" aria-labelledby="myPrizesTitle" hidden>
+    <div class="modal-mask" data-close></div>
+    <div class="panel-box">
+      <h2 class="panel-title" id="myPrizesTitle">我的奖品</h2>
+      <ul class="prize-list" id="prizeList"></ul>
+      <button class="modal-close" data-close type="button" aria-label="关闭弹窗">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== 活动规则弹窗 ===== -->
+  <div class="modal" id="ruleModal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle" hidden>
+    <div class="modal-mask" data-close></div>
+    <div class="panel-box">
+      <h2 class="panel-title" id="rulesTitle">活动规则</h2>
+      <div class="rule-list" id="ruleList"></div>
+      <button class="modal-close" data-close type="button" aria-label="关闭弹窗">✕</button>
+    </div>
+  </div>
+
+  <!-- 轻提示 -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
